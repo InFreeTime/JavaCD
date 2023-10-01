@@ -1,6 +1,7 @@
 package pl.javacd;
 
 import pl.javacd.drive.Drive;
+import pl.javacd.usbdevice.USBDevice;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,7 @@ public class Computer {
     private Drive drive;
     private Headphones hedaphones;
 
-    List<USBDevice> usbDevices = new ArrayList<>();
+    private List<USBDevice> usbDevices = new ArrayList<>();
 
     public Computer(Monitor monitor, Drive dive){
         this.monitor = monitor;
@@ -43,5 +44,22 @@ public class Computer {
 
     public List<USBDevice> getUsbDevices() {
         return usbDevices;
+    }
+
+    public void addUSBDevice(USBDevice usbDevice){
+        boolean isConnected = usbDevice.connect();
+
+        if(isConnected){
+            usbDevices.add(usbDevice);
+        }
+    }
+
+    public void removeUSBDevice(USBDevice usbDevice){
+        boolean isDisconnected = usbDevice.disconnect();
+
+        if(isDisconnected){
+            usbDevices.remove(usbDevice);
+        }
+
     }
 }
